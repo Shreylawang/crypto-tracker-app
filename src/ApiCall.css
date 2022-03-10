@@ -1,0 +1,14 @@
+.container{
+    margin-left: 47px;
+    padding: 0;
+    font-size: 15.91px;    
+    display: flex;
+    
+    
+}
+.container .row{
+    text-align: center;
+    margin-top: -76px;
+}
+  
+
