@@ -1,5 +1,7 @@
 import React from "react";
 import "../DataPerPage.css";
+import { Link } from "react-router-dom";
+import Details from "./Details";
 
 export default function Pagination({ crypto, loading }) {
   if (loading) {
@@ -15,7 +17,7 @@ export default function Pagination({ crypto, loading }) {
     const cryptoFormat = (num) =>
     new Intl.NumberFormat("en-IN", {      
     }).format(num);
-
+    
     
   return (
     <div className="dataContainer">
@@ -30,6 +32,8 @@ export default function Pagination({ crypto, loading }) {
           <th>Circulating Supply</th>
           <th>MaxSupply</th>
           <th>Vwap24Hr</th>
+          <th>Details</th>
+
         </tr>
       
         {crypto.map((currCrypto) => {
@@ -45,9 +49,14 @@ export default function Pagination({ crypto, loading }) {
               <td data-label="Market Cap">{numberFormat(currCrypto.marketCapUsd)}</td>
               <td data-label="Volume(24h)">{numberFormat(currCrypto.volumeUsd24Hr)}</td>
               <td data-label="Circulating Supply">{cryptoFormat(parseInt(currCrypto.supply))} {currCrypto.symbol} </td>
-              <td data-label="MaxSupply">{currCrypto.maxSupply ? (cryptoFormat(parseInt(currCrypto.maxSupply))) : "NA" }</td>
-              
+              <td data-label="MaxSupply">{currCrypto.maxSupply ? (cryptoFormat(parseInt(currCrypto.maxSupply))) : "NA" }</td>              
               <td data-label="Vwap24Hr">{currCrypto.vwap24Hr}</td>
+              <td data-label="Details">
+                <Link to={`details/${currCrypto.id}`}>                             
+                  View Details
+                </Link>
+              </td>
+              
             </tr>
           );
         })}
