@@ -6,35 +6,26 @@ export default function Details()  {
    // url param
    const { id } = useParams();
   // Crypto data variable
-  const [cryptos, setCryptos] = useState([]);
-  let User = '';
+  const [cryptos, setCryptos] = useState([]);  
   //Getting Crypto data from api
-  const getUsers = async () => {         
+
+  const fetchAPIData = async () => {
     const response = await fetch('https://api.coincap.io/v2/assets');
-    const jsonResponse = await response.json();      
-    setCryptos(jsonResponse.data); 
-  };  
+    const jsonResponse = await response.json(); 
+    setCryptos(jsonResponse.data.find((CryptoId) => CryptoId.id === id));
+  }
   
   useEffect(() => {        
-    getUsers();
-  }, []);
-  
-function getCrypto(CryptoId) {
-    console.log(CryptoId)    
-    return cryptos.find((CryptoId) => CryptoId.id === id); 
-  }
-const matchUser = () => {
-    const temp = getCrypto(id);
-  const cryptoData = {temp}
-  console.log(cryptoData.temp); 
-  User = cryptoData.temp;  
-}
+   
 
-matchUser()
-  console.log(User)
+    fetchAPIData();
+  }, []);
+
+
   return (
     <div>
-        <h1>{JSON.stringify(User)}</h1>
+        <h1>{cryptos.id}</h1>
+        <p>{cryptos.rank}</p>
     </div>
   )
 }
